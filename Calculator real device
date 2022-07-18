@@ -1,0 +1,57 @@
+//Project for open calculator and perform addition on real device
+package appium;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.HttpCommandExecutor;
+import org.openqa.selenium.remote.RemoteWebDriver;
+
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.remote.MobileCapabilityType;
+
+public class Appium_project {
+public static void main(String[] args) throws MalformedURLException
+{
+	DesiredCapabilities dc=new DesiredCapabilities();
+	dc.setCapability(MobileCapabilityType.AUTOMATION_NAME,"Appium");
+			dc.setCapability(MobileCapabilityType.DEVICE_NAME,"Android");
+		
+	      dc.setCapability(MobileCapabilityType.PLATFORM_NAME,"Galaxy J8");
+	      dc.setCapability(MobileCapabilityType.PLATFORM_VERSION, "10");
+	      dc.setCapability("appPackage","com.sec.android.app.popupcalculator");
+	      dc.setCapability("appActivity", "com.sec.android.app.popupcalculator.Calculator");
+	      //WebDriver driver = null;
+	      URL url = null;
+	      try {
+	    	  url = new URL("http://127.0.0.1:4723/wd/hub");
+	      }
+	      catch(Exception e)
+	      {
+	    	  System.out.println(" server Not found");
+	      }
+	      
+		AndroidDriver driver = new AndroidDriver(url, dc);
+		WebElement first_num=driver.findElement(By.xpath("//android.widget.Button[@text='2']"));
+	    first_num.click();
+	    WebElement plus=driver.findElement(By.xpath("//android.widget.Button[@text='+']"));
+	    plus.click();
+	    WebElement sec_num=driver.findElement(By.xpath("//android.widget.Button[@text='4']"));
+	    sec_num.click();
+	    WebElement equalTo=driver.findElement(By.xpath("//android.widget.Button[@text='=']"));
+	    equalTo.click();
+	    try
+	    {
+	    System.out.println("Result -"+driver.findElement(By.id("com.sec.android.app.popupcalculator:id/calc_edt_formula")));
+	    }
+	    catch(Exception e)
+	    {
+	    	System.out.println("Result element not found");
+	    }
+}
+}
